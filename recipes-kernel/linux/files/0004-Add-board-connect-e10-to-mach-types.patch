@@ -1,0 +1,11 @@
+diff -Naru a/arch/arm/tools/mach-types b/arch/arm/tools/mach-types
+--- a/arch/arm/tools/mach-types	2015-03-05 12:51:38.605767146 -0600
++++ b/arch/arm/tools/mach-types	2015-03-05 12:52:05.950587194 -0600
+@@ -497,6 +497,7 @@
+ miccpt			MACH_MICCPT		MICCPT			2886
+ mic256			MACH_MIC256		MIC256			2887
+ u5500			MACH_U5500		U5500			2890
++connect_e10		MACH_CONNECT_E10	CONNECT_E10		2908
+ linkstation_lschl	MACH_LINKSTATION_LSCHL	LINKSTATION_LSCHL	2913
+ smdkv310		MACH_SMDKV310		SMDKV310		2925
+ wm8505_7in_netbook	MACH_WM8505_7IN_NETBOOK	WM8505_7IN_NETBOOK	2928

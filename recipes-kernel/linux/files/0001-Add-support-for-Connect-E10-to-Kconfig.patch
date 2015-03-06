@@ -1,0 +1,18 @@
+--- ./arch/arm/mach-at91/Kconfig.orig	2015-03-05 12:18:43.766539608 -0600
++++ ./arch/arm/mach-at91/Kconfig	2015-03-04 12:42:22.000000000 -0600
+@@ -194,6 +194,15 @@
+ 
+ # ----------------------------------------------------------
+ 
++comment "Synapse Board Type"
++
++config MACH_CONNECT_E10
++	bool "Synapse Connect E10"
++	help
++		Select this if you are building for the Synapse Connect E10.
++
++# ----------------------------------------------------------
++
+ comment "AT91 Feature Selections"
+ 
+ config AT91_SLOW_CLOCK
