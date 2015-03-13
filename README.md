@@ -33,3 +33,7 @@ cd ${PROJ_DIR}/meta-atmel && git checkout -b my_branch origin/dizzy
 2. source oe-init-build-env build-atmel
 3. cp ../meta-synapse/build-dir/conf/* ./conf/
 4. bitbake core-image-minimal
+
+## Dependencies
+
+* chrpath
