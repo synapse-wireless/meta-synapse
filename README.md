@@ -37,3 +37,28 @@ cd ${PROJ_DIR}/meta-atmel && git checkout -b my_branch origin/dizzy
 ## Dependencies
 
 * chrpath
+
+## Bitbake dance
+-----
+To update the stage1-additions package and have it reflected in the rootfs image
+
+From inside the build-atmel directory, after you have sourced the oe-init-build-env file...
+```bash
+bitbake -c cleansstate stage1-additions; bitbake stage1-additions
+bitbake -c cleansstate core-image-minimal; bitbake core-image-minimal
+```
+
+To build the kernel the first time, comment out these lines
+
+#CONFIG_INITRAMFS_SOURCE="/home/cbagwell/poky/build-atmel/tmp/deploy/images/at91sam9x5ek/core-image-minimal-at91sam9x5ek.cpio.gz"
+#CONFIG_INITRAMFS_ROOT_UID=0
+#CONFIG_INITRAMFS_ROOT_GID=0
+
+```bash
+bitbake -c cleansstate virtual/kernel; bitbake virtual/kernel
+```
+
+To update the Stage1-Kernel and initramfs
+Add back in the lines you just uncommeted, but have it pointing to your initramfs location.
+then re-run the command above.
+
