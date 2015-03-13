@@ -1,3 +1,5 @@
+KERNEL_IMAGETYPE = "uImage"
+
 FILESEXTRAPATHS_prepend := "${THISDIR}/files/:"
 
 PREMIRRORS = ""
