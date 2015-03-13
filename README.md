@@ -12,6 +12,21 @@ Follow the instructions below, taken from https://github.com/linux4sam/meta-atme
 6.  Checkout the proper meta-atmel layer - "cd ~/poky/meta-atmel; git checkout origin/dizzy -b my_branch"
 7.  Clone the meta-synapse layer - "git clone git@git.synapse-wireless.com:octo/meta-synapse.git ~/poky/meta-synapse"
 
+## Setup Steps Bash-ified
+
+```bash
+PROJ_DIR=~/work/e10-2.x
+git clone git://git.yoctoproject.org/poky ${PROJ_DIR}
+git clone git://git.openembedded.org/meta-openembedded ${PROJ_DIR}/meta-openembedded
+git clone git://github.com/meta-qt5/meta-qt5.git ${PROJ_DIR}/meta-qt5
+git clone git://github.com/linux4sam/meta-atmel ${PROJ_DIR}/meta-atmel
+git clone git@git.synapse-wireless.com:octo/meta-synapse.git ${PROJ_DIR}/meta-synapse
+cd ${PROJ_DIR} && git checkout -b my_branch origin/dizzy-12.0.1
+cd ${PROJ_DIR}/meta-openembedded && git checkout -b my_branch origin/dizzy
+cd ${PROJ_DIR}/meta-qt5 && git checkout -b my_branch origin/master
+cd ${PROJ_DIR}/meta-atmel && git checkout -b my_branch origin/dizzy
+```
+
 ## Steps to generate the Stage 1 Kernel/Initramfs
 -----
 1. cd ~/poky/
