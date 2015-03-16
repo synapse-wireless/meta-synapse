@@ -9,23 +9,23 @@ LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d
 
 PACKAGES = "${PN}"
 
-SRC_URI = "file://fw_env.config"
+#SRC_URI = "file://fw_env.config"
 # Add new SRC_URI += lines here
 
 
 S = "${WORKDIR}"
 
 do_install () {
-
-	mkdir -p ${D}${sysconfdir}
+	:
+#	mkdir -p ${D}${sysconfdir}
 # Add new mkdirs for your destination path here.  Look at meta/conf/bitbake.conf for built-in variables
 
-	install -D fw_env.config ${D}${sysconfdir}/
+#	install -D fw_env.config ${D}${sysconfdir}/
 # Add new installation lines here
 
 }
 
-FILES_${PN} = "${sysconfdir}/fw_env.config"
+#FILES_${PN} = "${sysconfdir}/fw_env.config"
 # Add new Destination files here to be included in the package
 
 # Prevents do_package failures with:
