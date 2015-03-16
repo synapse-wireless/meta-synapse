@@ -1,6 +1,7 @@
 SUMMARY = "The stage 2 rootfs for the Connect E10"
 
 IMAGE_INSTALL = "packagegroup-core-boot ${ROOTFS_PKGMANAGE_BOOTSTRAP} ${CORE_IMAGE_EXTRA_INSTALL}"
+IMAGE_INSTALL += "mtd-utils mtd-utils-ubifs python"
 
 IMAGE_LINGUAS = " "
 
