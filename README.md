@@ -62,3 +62,11 @@ To update the Stage1-Kernel and initramfs
 Add back in the lines you just uncommeted, but have it pointing to your initramfs location.
 then re-run the command above.
 
+
+## Booting via tftp
+
+```
+setenv ipaddr <E10 ip addr>
+setenv serverip <tftp server ip addr>
+tftpboot 0x21000000 uImage-at91sam9x5ek.bin
+```
