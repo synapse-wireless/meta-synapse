@@ -37,6 +37,13 @@ cd ${PROJ_DIR}/meta-atmel && git checkout -b my_branch origin/dizzy
 ## Dependencies
 
 * chrpath
+* gawk
+* wget
+* git-core
+* diffstat
+* unzip
+* texinfo
+* build-essentials
 
 ## Bitbake dance
 -----
