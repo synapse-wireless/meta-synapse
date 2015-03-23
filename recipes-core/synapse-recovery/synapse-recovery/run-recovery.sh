@@ -13,6 +13,8 @@ die() {
     exit 1
 }
 
+REBOOT=no
+
 # Verify storage image
 
 # Extract storage image
@@ -36,6 +38,8 @@ if [ -e /run/${ROOTFS_URI} ]; then
     ubimkvol /dev/ubi0 -N rootfs -m || die "Failed to ubimkvol rootfs"
     ubiupdatevol /dev/ubi0_0 /run/${ROOTFS_UBI} \
         || die "Failed to write rootfs UBI to NAND"
+
+    REBOOT=yes
 fi
 
 # if the storage image contained a rootfs, load it
@@ -49,6 +53,8 @@ if [ -e /run/${KERNEL_IMG} ]; then
     # Program in kernel
     nandwrite -p ${KERNEL_MTD} /run/${KERNEL_IMG} \
         || die "Failed to write kernel to NAND"
+
+    REBOOT=yes
 fi
 
 # Set u-boot params to boot
@@ -56,4 +62,6 @@ fw_setenv bootargs ${UBOOT_BOOTARGS} || die "Failed to set u-boot bootargs"
 fw_setenv bootcmd ${UBOOT_BOOTCMD} || die "Failed to set u-boot bootcmd"
 
 # Reboot
-#reboot
+if [ "x${REBOOT}" == "xyes" ]; then
+    reboot
+fi
