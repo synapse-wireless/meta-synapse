@@ -18,3 +18,9 @@ MKUBIFS_ARGS = " -e 0x1f800 -c 2048 -m 0x800  -x lzo"
 IMAGE_FSTYPES += "${INITRAMFS_FSTYPES}"
 
 IMAGE_FEATURES += "package-management"
+
+# create 'snap' user with password 'synapse' that expires on first login
+inherit extrausers
+EXTRA_USERS_PARAMS = "\
+   useradd -P synapse -s /bin/sh -e 0 -G sudo,dialout snap; \
+"
