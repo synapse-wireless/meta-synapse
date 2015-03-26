@@ -10,10 +10,18 @@ SRC_URI = "file://run-recovery.sh \
            file://run-recovery.init"
 S = "${WORKDIR}"
 
-inherit update-rc.d
+inherit allarch update-rc.d
 
 INITSCRIPT_NAME = "run-recovery"
 INITSCRIPT_PARAMS = "start 99 S ."
+
+do_configure() {
+	:
+}
+
+do_compile() {
+	:
+}
 
 do_install () {
 	# install run-recovery.sh into /usr/bin
@@ -27,8 +35,3 @@ do_install () {
 
 FILES_${PN} = "${sbindir}/run-recovery \
 	           ${sysconfdir}/init.d/run-recovery"
-# Add new Destination files here to be included in the package
-
-# Prevents do_package failures with:
-# debugsources.list: No such file or directory:
-INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
