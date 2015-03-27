@@ -18,7 +18,7 @@ REBOOT=no
 # Verify storage image
 
 # Extract storage image
-nanddump ${STORAGE} | tar xf - -C /run/ \
+nanddump ${STORAGE} | tar Jxf - -C /run/ \
     || die "Failed to extract kernel & rootfs from NAND"
 cd /run/ || die "Failed to cd to /run/"
 md5sum -c md5sums || die "Failed to validate md5sums"
