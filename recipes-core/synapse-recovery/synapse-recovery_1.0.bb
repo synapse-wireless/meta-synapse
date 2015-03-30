@@ -1,7 +1,7 @@
 SUMMARY = "Synapse Recovery Scripts and Files"
 DESCRIPTION = "Files and scripts necessary to recover from a Synapse Recovery IMG"
 SECTION = "base"
-PR = "r2"
+PR = "r3"
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COREBASE}/LICENSE;md5=4d92cd373abda3937c2bc47fbc49d690 \
                     file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
@@ -26,10 +26,10 @@ do_compile() {
 do_install () {
 	# install run-recovery.sh into /usr/bin
 	install -d ${D}${sbindir}
-	install -m 0755 run-recovery.sh ${D}${sbindir}/run-recovery
+	install -m 0755 ${S}/run-recovery.sh ${D}${sbindir}/run-recovery
 
 	install -d ${D}${sysconfdir}/init.d/
-	install -m 0755 ${WORKDIR}/run-recovery.init \
+	install -m 0755 ${S}/run-recovery.init \
 		${D}${sysconfdir}/init.d/run-recovery
 }
 
