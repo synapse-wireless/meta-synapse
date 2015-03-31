@@ -1,6 +1,6 @@
 #!/bin/sh
 
-STORAGE=/dev/mtd6
+RECOVERY_MTD=/dev/mtd6
 ROOTFS_MTD=/dev/mtd5
 ROOTFS_UBI=core-image-stage2-at91sam9x5ek.ubifs
 KERNEL_MTD=/dev/mtd3
@@ -15,15 +15,15 @@ die() {
 
 REBOOT=no
 
-# Verify storage image
+# Verify recovery image
 
-# Extract storage image
-nanddump ${STORAGE} | tar Jxf - -C /run/ \
+# Extract recovery image
+nanddump ${RECOVERY_MTD} | tar Jxf - -C /run/ \
     || die "Failed to extract kernel & rootfs from NAND"
 cd /run/ || die "Failed to cd to /run/"
 md5sum -c md5sums || die "Failed to validate md5sums"
 
-# if the storage image contained a rootfs, load it
+# if the recovery image contained a rootfs, load it
 if [ -e /run/${ROOTFS_URI} ]; then
     # Test NAND for bad blocks. Mark them bad if found. Run 5 tests.
     nandtest -p 5 -m ${ROOTFS_MTD}
@@ -42,7 +42,7 @@ if [ -e /run/${ROOTFS_URI} ]; then
     REBOOT=yes
 fi
 
-# if the storage image contained a rootfs, load it
+# if the recovery image contained a rootfs, load it
 if [ -e /run/${KERNEL_IMG} ]; then
     # Test NAND for bad blocks. Mark them bad if found. Run 5 tests.
     nandtest -p 5 -m ${KERNEL_MTD}
