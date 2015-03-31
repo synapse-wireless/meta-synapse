@@ -16,4 +16,4 @@ IMAGE_INSTALL += "u-boot-fw-utils gnupg mtd-utils mtd-utils-ubifs"
 IMAGE_INSTALL += "synapse-recovery"
 
 # allows root to login with no password
-IMAGE_FEATURES_append = "debug-tweaks"
+IMAGE_FEATURES_append = "debug-tweaks ssh-server-dropbear"
