@@ -1,10 +1,14 @@
 #!/bin/sh
 
-STORAGE=/dev/mtd6
+TESTPASSES=5
+RECOVERY_TAR=
+RECOVERY_MTD=/dev/mtd6
 ROOTFS_MTD=/dev/mtd5
 ROOTFS_UBI=core-image-stage2-at91sam9x5ek.ubifs
 KERNEL_MTD=/dev/mtd3
 KERNEL_IMG=uImage-at91sam9x5ek.bin
+UBOOT_MTD=/dev/mtd1
+UBOOT_IMG=u-boot-at91sam9x5ek.bin
 UBOOT_BOOTCMD="nboot 0x21000000 0 c0000"
 UBOOT_BOOTARGS="console=ttyS0,115200 mtdparts=atmel_nand:128K(bootstrap)ro,384K(uboot)ro,256K(environment),3328K(uImage)ro,9216K(recovery)ro,211M(rootfs),-(other) ubi.mtd=rootfs root=ubi0:rootfs rw rootfstype=ubifs"
 
@@ -13,20 +17,40 @@ die() {
     exit 1
 }
 
+while getopts m:t:p: name; do
+	case ${name} in
+		m)
+			RECOVERY_MTD="${OPTARG}" ;;
+		t)
+			RECOVERY_TAR="${OPTARG}" ;;
+		p)
+			TESTPASSES=${OPTARG} ;;
+		?)
+			printf "Usage: %s: [-m /dev/mtdX] [-t recovery.tar.xz] [-p NUM]" $0
+			exit 2
+			;;
+	esac
+done
+
 REBOOT=no
 
-# Verify storage image
+# Verify recovery image
 
-# Extract storage image
-nanddump ${STORAGE} | tar Jxf - -C /run/ \
-    || die "Failed to extract kernel & rootfs from NAND"
+# Extract recovery image
+if [ ! -z ${RECOVERY_TAR} ]; then
+	tar Jxf ${RECOVERY_TAR} -C /run/ \
+		|| die "Failed to extract kernel & rootfs from ${RECOVERY_TAR}"
+else
+	nanddump ${RECOVERY_MTD} | tar Jxf - -C /run/ \
+		|| die "Failed to extract kernel & rootfs from NAND"
+fi
 cd /run/ || die "Failed to cd to /run/"
 md5sum -c md5sums || die "Failed to validate md5sums"
 
-# if the storage image contained a rootfs, load it
+# if the recovery image contained a rootfs, load it
 if [ -e /run/${ROOTFS_URI} ]; then
-    # Test NAND for bad blocks. Mark them bad if found. Run 5 tests.
-    nandtest -p 5 -m ${ROOTFS_MTD}
+    # Test NAND for bad blocks. Mark them bad if found. Run ${TESTPASSES} tests.
+    nandtest -p ${TESTPASSES} -m ${ROOTFS_MTD}
 
     # Don't actually erase because that clears the erase counters
     # which is necessary to do proper wear leveling
@@ -42,10 +66,10 @@ if [ -e /run/${ROOTFS_URI} ]; then
     REBOOT=yes
 fi
 
-# if the storage image contained a rootfs, load it
+# if the recovery image contained a rootfs, load it
 if [ -e /run/${KERNEL_IMG} ]; then
-    # Test NAND for bad blocks. Mark them bad if found. Run 5 tests.
-    nandtest -p 5 -m ${KERNEL_MTD}
+    # Test NAND for bad blocks. Mark them bad if found. Run ${TESTPASSES} tests.
+    nandtest -p ${TESTPASSES} -m ${KERNEL_MTD}
 
     # Erase flash which is required for the next steps
     flash_erase ${KERNEL_MTD} 0 0 || die "Failed to erase ${KERNEL_MTD}"
@@ -53,6 +77,21 @@ if [ -e /run/${KERNEL_IMG} ]; then
     # Program in kernel
     nandwrite -p ${KERNEL_MTD} /run/${KERNEL_IMG} \
         || die "Failed to write kernel to NAND"
+
+    REBOOT=yes
+fi
+
+# if the recovery image contained U-Boot, load it
+if [ -e /run/${UBOOT_IMG} ]; then
+    # Test NAND for bad blocks. Mark them bad if found. Run ${TESTPASSES} tests.
+    nandtest -p ${TESTPASSES} -m ${UBOOT_MTD}
+
+    # Erase flash which is required for the next steps
+    flash_erase ${UBOOT_MTD} 0 0 || die "Failed to erase ${UBOOT_MTD}"
+
+    # Program in kernel
+    nandwrite -p ${UBOOT_MTD} /run/${UBOOT_IMG} \
+        || die "Failed to write U-Boot to NAND"
 
     REBOOT=yes
 fi

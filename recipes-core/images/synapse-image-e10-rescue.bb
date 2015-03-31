@@ -1,4 +1,4 @@
-SUMMARY = "The stage 1 recovery rootfs for the Connect E10"
+SUMMARY = "The rescue kernel + initramfs for the Connect E10"
 
 IMAGE_INSTALL = "packagegroup-core-boot ${ROOTFS_PKGMANAGE_BOOTSTRAP} ${CORE_IMAGE_EXTRA_INSTALL}"
 
