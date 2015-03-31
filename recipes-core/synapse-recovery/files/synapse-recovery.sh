@@ -10,7 +10,7 @@ KERNEL_IMG=uImage-at91sam9x5ek.bin
 UBOOT_MTD=/dev/mtd1
 UBOOT_IMG=u-boot-at91sam9x5ek.bin
 UBOOT_BOOTCMD="nboot 0x21000000 0 c0000"
-UBOOT_BOOTARGS="console=ttyS0,115200 mtdparts=atmel_nand:128K(bootstrap)ro,384K(uboot)ro,256K(environment),3328K(uImage)ro,9216K(recovery)ro,211M(rootfs),-(other) ubi.mtd=rootfs root=ubi0:rootfs rw rootfstype=ubifs"
+UBOOT_BOOTARGS="console=ttyS0,115200 mtdparts=atmel_nand:128K(bootstrap)ro,384K(uboot)ro,256K(environment),3328K(uImage)ro,9216K(rescue)ro,211M(rootfs),-(recovery) ubi.mtd=rootfs root=ubi0:rootfs rw rootfstype=ubifs"
 
 die() {
     logger -p daemon.emerg -t synapse-recovery -s $*
