@@ -1,5 +1,6 @@
 #!/bin/sh
 
+TESTPASSES=5
 RECOVERY_TAR=
 RECOVERY_MTD=/dev/mtd6
 ROOTFS_MTD=/dev/mtd5
@@ -16,14 +17,16 @@ die() {
     exit 1
 }
 
-while getopts m:t: name; do
+while getopts m:t:p: name; do
 	case ${name} in
 		m)
 			RECOVERY_MTD="${OPTARG}" ;;
 		t)
 			RECOVERY_TAR="${OPTARG}" ;;
+		p)
+			TESTPASSES=${OPTARG} ;;
 		?)
-			printf "Usage: %s: [-m /dev/mtdX] [-t recovery.tar.xz]" $0
+			printf "Usage: %s: [-m /dev/mtdX] [-t recovery.tar.xz] [-p NUM]" $0
 			exit 2
 			;;
 	esac
@@ -46,8 +49,8 @@ md5sum -c md5sums || die "Failed to validate md5sums"
 
 # if the recovery image contained a rootfs, load it
 if [ -e /run/${ROOTFS_URI} ]; then
-    # Test NAND for bad blocks. Mark them bad if found. Run 5 tests.
-    nandtest -p 5 -m ${ROOTFS_MTD}
+    # Test NAND for bad blocks. Mark them bad if found. Run ${TESTPASSES} tests.
+    nandtest -p ${TESTPASSES} -m ${ROOTFS_MTD}
 
     # Don't actually erase because that clears the erase counters
     # which is necessary to do proper wear leveling
@@ -65,8 +68,8 @@ fi
 
 # if the recovery image contained a rootfs, load it
 if [ -e /run/${KERNEL_IMG} ]; then
-    # Test NAND for bad blocks. Mark them bad if found. Run 5 tests.
-    nandtest -p 5 -m ${KERNEL_MTD}
+    # Test NAND for bad blocks. Mark them bad if found. Run ${TESTPASSES} tests.
+    nandtest -p ${TESTPASSES} -m ${KERNEL_MTD}
 
     # Erase flash which is required for the next steps
     flash_erase ${KERNEL_MTD} 0 0 || die "Failed to erase ${KERNEL_MTD}"
@@ -80,8 +83,8 @@ fi
 
 # if the recovery image contained U-Boot, load it
 if [ -e /run/${UBOOT_IMG} ]; then
-    # Test NAND for bad blocks. Mark them bad if found. Run 5 tests.
-    nandtest -p 5 -m ${UBOOT_MTD}
+    # Test NAND for bad blocks. Mark them bad if found. Run ${TESTPASSES} tests.
+    nandtest -p ${TESTPASSES} -m ${UBOOT_MTD}
 
     # Erase flash which is required for the next steps
     flash_erase ${UBOOT_MTD} 0 0 || die "Failed to erase ${UBOOT_MTD}"
