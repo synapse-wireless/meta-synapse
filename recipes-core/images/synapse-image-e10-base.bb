@@ -1,4 +1,4 @@
-SUMMARY = "Thie basic rootfs for the Connect E10"
+SUMMARY = "This basic rootfs for the Connect E10"
 
 IMAGE_INSTALL = "packagegroup-core-boot ${ROOTFS_PKGMANAGE_BOOTSTRAP}"
 IMAGE_INSTALL += "${CORE_IMAGE_EXTRA_INSTALL}"
