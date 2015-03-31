@@ -6,6 +6,8 @@ ROOTFS_MTD=/dev/mtd5
 ROOTFS_UBI=core-image-stage2-at91sam9x5ek.ubifs
 KERNEL_MTD=/dev/mtd3
 KERNEL_IMG=uImage-at91sam9x5ek.bin
+UBOOT_MTD=/dev/mtd1
+UBOOT_IMG=u-boot-at91sam9x5ek.bin
 UBOOT_BOOTCMD="nboot 0x21000000 0 c0000"
 UBOOT_BOOTARGS="console=ttyS0,115200 mtdparts=atmel_nand:128K(bootstrap)ro,384K(uboot)ro,256K(environment),3328K(uImage)ro,9216K(recovery)ro,211M(rootfs),-(other) ubi.mtd=rootfs root=ubi0:rootfs rw rootfstype=ubifs"
 
@@ -72,6 +74,21 @@ if [ -e /run/${KERNEL_IMG} ]; then
     # Program in kernel
     nandwrite -p ${KERNEL_MTD} /run/${KERNEL_IMG} \
         || die "Failed to write kernel to NAND"
+
+    REBOOT=yes
+fi
+
+# if the recovery image contained U-Boot, load it
+if [ -e /run/${UBOOT_IMG} ]; then
+    # Test NAND for bad blocks. Mark them bad if found. Run 5 tests.
+    nandtest -p 5 -m ${UBOOT_MTD}
+
+    # Erase flash which is required for the next steps
+    flash_erase ${UBOOT_MTD} 0 0 || die "Failed to erase ${UBOOT_MTD}"
+
+    # Program in kernel
+    nandwrite -p ${UBOOT_MTD} /run/${UBOOT_IMG} \
+        || die "Failed to write U-Boot to NAND"
 
     REBOOT=yes
 fi
