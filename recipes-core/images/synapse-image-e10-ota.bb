@@ -1,6 +1,6 @@
 SUMMARY = "The rootfs for the Connect E10 tailored for Over-the-Air updates"
 
-inherit synapse-image-e10-base
+include synapse-image-e10-base.bb
 
 # set 'snap' user with password 'synapse'
 inherit extrausers

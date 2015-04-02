@@ -41,8 +41,11 @@ if [ ! -z ${RECOVERY_TAR} ]; then
 	tar Jxf ${RECOVERY_TAR} -C /run/ \
 		|| die "Failed to extract kernel & rootfs from ${RECOVERY_TAR}"
 else
-	nanddump ${RECOVERY_MTD} | tar Jxf - -C /run/ \
-		|| die "Failed to extract kernel & rootfs from NAND"
+	# This can fail because we don't know how big the file is and as a result
+	# we will get random bytes of the NAND at the end which will be run
+	# through xz -d first which can cause tar to lose its mind.
+	nanddump ${RECOVERY_MTD} | tar Jvxf - -C /run/
+	[ -e /run/md5sums ] || die "Failed to extract rootfs & kernel from NAND"
 fi
 cd /run/ || die "Failed to cd to /run/"
 md5sum -c md5sums || die "Failed to validate md5sums"

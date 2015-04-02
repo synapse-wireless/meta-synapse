@@ -10,12 +10,10 @@ inherit core-image
 
 IMAGE_ROOTFS_SIZE ?= "8192"
 
-MKUBIFS_ARGS = " -e 0x1f800 -c 2048 -m 0x800  -x lzo"
-
 IMAGE_FSTYPES += "${INITRAMFS_FSTYPES}"
 
 IMAGE_INSTALL += "u-boot-fw-utils gnupg mtd-utils mtd-utils-ubifs"
 IMAGE_INSTALL += "synapse-recovery"
 
 # allows root to login with no password
-IMAGE_FEATURES_append = "debug-tweaks"
+IMAGE_FEATURES_append = "debug-tweaks ssh-server-dropbear"
