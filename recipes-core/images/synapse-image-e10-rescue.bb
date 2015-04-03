@@ -10,7 +10,8 @@ inherit core-image
 
 IMAGE_ROOTFS_SIZE ?= "8192"
 
-IMAGE_FSTYPES += "${INITRAMFS_FSTYPES}"
+# only build the filesystem necessary
+IMAGE_FSTYPES = "${INITRAMFS_FSTYPES}"
 
 IMAGE_INSTALL += "u-boot-fw-utils gnupg mtd-utils mtd-utils-ubifs"
 IMAGE_INSTALL += "synapse-recovery"
