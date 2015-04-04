@@ -19,6 +19,9 @@ IMAGE_INSTALL += "synapse-recovery"
 # allows root to login with no password
 IMAGE_FEATURES_append = "debug-tweaks ssh-server-dropbear"
 
+# Don't need syslog filling up our RAM (since the rootfs is a RAM disk)
+BAD_RECOMMENDATIONS += "busybox-syslog"
+
 # The following sets the hostname of the rescue image to 'rescue'
 set_hostname_to_rescue() {
 	echo 'rescue' > ${IMAGE_ROOTFS}/etc/hostname
