@@ -1,0 +1,4 @@
+Common targets:
+  - synapse-image-e10-rescue - our rescue image
+  - synapse-image-e10-ota - OTA upgrade from 1.0 image
+  - synapse-image-e10-coreiot - official CoreIoT 2.0 image
