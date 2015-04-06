@@ -8,12 +8,23 @@ LICENSE = "MIT"
 
 inherit core-image
 
-IMAGE_ROOTFS_SIZE ?= "8192"
+IMAGE_ROOTFS_SIZE = "8192"
 
-IMAGE_FSTYPES += "${INITRAMFS_FSTYPES}"
+# only build the filesystem necessary
+IMAGE_FSTYPES = "${INITRAMFS_FSTYPES}"
 
 IMAGE_INSTALL += "u-boot-fw-utils gnupg mtd-utils mtd-utils-ubifs"
 IMAGE_INSTALL += "synapse-recovery"
 
 # allows root to login with no password
 IMAGE_FEATURES_append = "debug-tweaks ssh-server-dropbear"
+
+# Don't need syslog filling up our RAM (since the rootfs is a RAM disk)
+BAD_RECOMMENDATIONS += "busybox-syslog"
+
+# The following sets the hostname of the rescue image to 'rescue'
+set_hostname_to_rescue() {
+	echo 'rescue' > ${IMAGE_ROOTFS}/etc/hostname
+}
+
+ROOTFS_POSTPROCESS_COMMAND_append = " set_hostname_to_rescue; "
