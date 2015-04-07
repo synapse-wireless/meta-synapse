@@ -1,7 +1,7 @@
 diff -Naru a/arch/arm/mach-at91/board-connect-e10.c b/arch/arm/mach-at91/board-connect-e10.c
 --- a/arch/arm/mach-at91/board-connect-e10.c	1969-12-31 18:00:00.000000000 -0600
 +++ b/arch/arm/mach-at91/board-connect-e10.c	2015-03-04 12:23:54.000000000 -0600
-@@ -0,0 +1,291 @@
+@@ -0,0 +1,311 @@
 +/*
 + *  Copyright (C) 2005 SAN People
 + *  Copyright (C) 2010 calao-systems
@@ -105,17 +105,37 @@ diff -Naru a/arch/arm/mach-at91/board-connect-e10.c b/arch/arm/mach-at91/board-c
 + */
 +static struct mtd_partition __initdata ek_nand_partition[] = {
 +	{
-+		.name   = "Bootstrap",
++		.name   = "bootstrap",
 +		.offset = 0,
-+		.size   = 16 * SZ_1M,
++		.size   = 128 * SZ_1K,
 +	},
 +	{
-+		.name	= "Partition 1",
++		.name	= "uboot",
 +		.offset	= MTDPART_OFS_NXTBLK,
-+		.size	= 120 * SZ_1M,
++		.size	= 384 * SZ_1K,
 +	},
 +	{
-+		.name	= "Partition 2",
++		.name	= "environment",
++		.offset	= MTDPART_OFS_NXTBLK,
++		.size	= 256 * SZ_1K,
++	},
++	{
++		.name	= "uImage",
++		.offset	= MTDPART_OFS_NXTBLK,
++		.size	= 3328 * SZ_1K,
++	},
++	{
++		.name	= "rescue",
++		.offset	= MTDPART_OFS_NXTBLK,
++		.size	= 9216 * SZ_1K,
++	},
++	{
++		.name	= "rootfs",
++		.offset	= MTDPART_OFS_NXTBLK,
++		.size	= 211 * SZ_1M,
++	},
++	{
++		.name	= "recovery",
 +		.offset	= MTDPART_OFS_NXTBLK,
 +		.size	= MTDPART_SIZ_FULL,
 +	},
