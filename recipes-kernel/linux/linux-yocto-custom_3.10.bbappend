@@ -17,3 +17,5 @@ do_configure_prepend() {
 	rm -f ${B}/.config.old
 }
 
+# We use the AT91SAM9G20 so add that to the device trees built in
+KERNEL_DEVICETREE += "${S}/arch/arm/boot/dts/at91sam9g20ek.dts"
