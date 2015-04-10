@@ -4,37 +4,36 @@ The following instructions are based on those at:
 https://github.com/linux4sam/meta-atmel
 
 ```bash
-PROJ_DIR=~/work/e10-2.x
+export E10_SRC=~/work/e10-2.x
 
-git clone git://git.yoctoproject.org/poky ${PROJ_DIR}
-git clone git://git.openembedded.org/meta-openembedded ${PROJ_DIR}/meta-openembedded
-git clone git://github.com/meta-qt5/meta-qt5.git ${PROJ_DIR}/meta-qt5
-git clone git://github.com/linux4sam/meta-atmel ${PROJ_DIR}/meta-atmel
-git clone git@git.synapse-wireless.com:octo/meta-synapse.git ${PROJ_DIR}/meta-synapse
-cd ${PROJ_DIR} && git checkout -b my_branch origin/dizzy-12.0.1
-cd ${PROJ_DIR}/meta-openembedded && git checkout -b my_branch origin/dizzy
-cd ${PROJ_DIR}/meta-qt5 && git checkout -b my_branch origin/master
-cd ${PROJ_DIR}/meta-atmel && git checkout -b my_branch origin/dizzy
+git clone git://git.yoctoproject.org/poky ${E10_SRC}
+git clone git://git.openembedded.org/meta-openembedded ${E10_SRC}/meta-openembedded
+git clone git://github.com/meta-qt5/meta-qt5.git ${E10_SRC}/meta-qt5
+git clone git://github.com/linux4sam/meta-atmel ${E10_SRC}/meta-atmel
+git clone git@git.synapse-wireless.com:octo/meta-synapse.git ${E10_SRC}/meta-synapse
+cd ${E10_SRC} && git checkout -b my_branch origin/dizzy-12.0.1
+cd ${E10_SRC}/meta-openembedded && git checkout -b my_branch origin/dizzy
+cd ${E10_SRC}/meta-qt5 && git checkout -b my_branch origin/master
+cd ${E10_SRC}/meta-atmel && git checkout -b my_branch origin/dizzy
 ```
 
 ## Creating your build directory
 -----
 
 ```bash
-cd ${PROJ_DIR}
+cd ${E10_SRC}
+export TEMPLATECONF=meta-synapse-conf
 source oe-init-build-env build-atmel
-rm -rf conf
-ln -s ../meta-synapse/build-dir/conf conf
 ```
 
-The idea is we want to maintain our build configuration consistently and not
-something we plan on customizing like many Yocto users would.
+If there are any documented changes to the `local.conf` then those will need to be
+get set in your `build-atmel/conf` directory as well.
 
 ## Enabling bitbake in your terminal
 -----
 
 ```bash
-cd ${PROJ_DIR}
+cd ${E10_SRC}
 source oe-init-build-env build-atmel
 ```
 
@@ -77,6 +76,7 @@ kernel and the rootfs
 * iputils - provides `ping`, `hostname`, and `arp`
 * nano - cause vi can be scary
 * openvpn
+* python-pip
 * python-pytz
 * python-tornado
 
