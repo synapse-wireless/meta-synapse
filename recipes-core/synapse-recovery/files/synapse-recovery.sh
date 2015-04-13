@@ -105,5 +105,11 @@ fw_setenv bootcmd ${UBOOT_BOOTCMD} || die "Failed to set u-boot bootcmd"
 
 # Reboot
 if [ "x${REBOOT}" == "xyes" ]; then
+	# if we used the RECOVERY_MTD then we need to clear it out
+	# so that the next time we reboot we don't flash ourselves again
+	if [ -z ${RECOVERY_TAR} ]; then
+		flash_erase ${RECOVERY_MTD} 0 0
+	fi
+
     reboot
 fi
