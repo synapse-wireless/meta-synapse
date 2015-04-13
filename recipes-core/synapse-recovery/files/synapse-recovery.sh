@@ -44,8 +44,9 @@ else
 	# This can fail because we don't know how big the file is and as a result
 	# we will get random bytes of the NAND at the end which will be run
 	# through xz -d first which can cause tar to lose its mind.
-	nanddump ${RECOVERY_MTD} | tar Jvxf - -C /run/
-	[ -e /run/md5sums ] || die "Failed to extract rootfs & kernel from NAND"
+	nanddump ${RECOVERY_MTD} 2>/dev/null | tar Jvxf - -C /run/ 2>/dev/null
+	[ -e /run/md5sums ] || die "Failed to extract rootfs & kernel from NAND \
+		or no recovery data present"
 fi
 cd /run/ || die "Failed to cd to /run/"
 md5sum -c md5sums || die "Failed to validate md5sums"
