@@ -20,7 +20,7 @@ IMAGE_INSTALL += "u-boot-fw-utils gnupg mtd-utils mtd-utils-ubifs"
 IMAGE_INSTALL += "synapse-recovery"
 
 # allows root to login with no password
-IMAGE_FEATURES_append = "debug-tweaks ssh-server-dropbear"
+IMAGE_FEATURES_append = "ssh-server-dropbear"
 
 # Don't need syslog filling up our RAM (since the rootfs is a RAM disk)
 BAD_RECOMMENDATIONS += "busybox-syslog"
@@ -30,4 +30,16 @@ set_hostname_to_rescue() {
 	echo 'rescue' > ${IMAGE_ROOTFS}/etc/hostname
 }
 
-ROOTFS_POSTPROCESS_COMMAND_append = " set_hostname_to_rescue; "
+# Allow the user to login as root with no password
+unzap_empty_root_password() {
+	if [ -e ${IMAGE_ROOTFS}/etc/shadow ]; then
+		sed -i -e 's%^root:\*:%root::%' ${IMAGE_ROOTFS}/etc/shadow
+	elif [ -e ${IMAGE_ROOTFS}/etc/passwd ]; then
+		sed -i -e 's%^root:\*:%root::%' ${IMAGE_ROOTFS}/etc/passwd
+	fi
+}
+
+ROOTFS_POSTPROCESS_COMMAND_append = "\
+	set_hostname_to_rescue ; \
+	unzap_empty_root_password ; \
+"
