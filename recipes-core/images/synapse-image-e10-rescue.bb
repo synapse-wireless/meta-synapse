@@ -10,6 +10,9 @@ inherit core-image
 
 IMAGE_ROOTFS_SIZE = "8192"
 
+# Causes Yocto to create basic /dev nodes necessary to boot
+USE_DEVFS = "0"
+
 # only build the filesystem necessary
 IMAGE_FSTYPES = "${INITRAMFS_FSTYPES}"
 
