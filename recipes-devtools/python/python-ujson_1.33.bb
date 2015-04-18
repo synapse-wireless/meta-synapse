@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://${S}/../LICENSE.txt;md5=cbb7d7d409df43b6a129e9c06d33f
 SRCNAME = "ujson"
 
 SRC_URI = "\
-	https://pypi.python.org/packages/source/u/${SRCNAME}/${SRCNAME}-${PV}.zip \
+	https://pypi.python.org/packages/source/u/${SRCNAME}/${SRCNAME}-${PV}.zip;name=archive \
 	https://raw.githubusercontent.com/esnme/ultrajson/master/LICENSE.txt;name=lic \
 "
 SRC_URI[archive.md5sum] = "8148a2493fff78940feab1e11dc0a893"
