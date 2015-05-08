@@ -63,7 +63,7 @@ pkg_postinst_kernel-image(){
 #!/bin/sh -e
 # Commands to carry out
 KERNEL_MTD=/dev/mtd3
-KERNEL_IMG=uImage-3.10.0-custom
+KERNEL_IMG=uImage-${KERNEL_VERSION}
 TESTPASSES=5
 
 die() {
