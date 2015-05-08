@@ -71,6 +71,9 @@ die() {
     exit 1
       }
 
+# We only want this to run on the actual device
+[ "x${D}" != "x" ] || exit 1
+
 # Test NAND for bad blocks. Mark them bad if found. Run ${TESTPASSES} tests.
 nandtest -p ${TESTPASSES} -m ${KERNEL_MTD}
 
