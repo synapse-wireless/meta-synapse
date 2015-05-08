@@ -59,3 +59,31 @@ SRC_URI += "file://tun_kmodule.cfg"
 # We use the AT91SAM9G20 so add that to the device trees built in
 KERNEL_DEVICETREE += "${S}/arch/arm/boot/dts/at91sam9g20ek.dts"
 
+pkg_postinst_kernel-image(){
+#!/bin/sh -e
+# Commands to carry out
+KERNEL_MTD=/dev/mtd3
+KERNEL_IMG=uImage-${KERNEL_VERSION}
+TESTPASSES=5
+
+die() {
+    logger -p daemon.emerg -t kernel-image-install -s $*
+    exit 1
+      }
+
+# We only want this to run on the actual device
+[ "x${D}" != "x" ] || exit 1
+
+# Test NAND for bad blocks. Mark them bad if found. Run ${TESTPASSES} tests.
+nandtest -p ${TESTPASSES} -m ${KERNEL_MTD}
+
+# Erase flash which is required for the next steps
+flash_erase ${KERNEL_MTD} 0 0 || die "Failed to erase ${KERNEL_MTD}"
+
+# Program in kernel
+nandwrite -p ${KERNEL_MTD} /boot/${KERNEL_IMG} \
+    || die "Failed to write kernel to NAND"
+
+echo "The new kernel will be loaded at the next reboot."
+}
+
