@@ -1,0 +1,5 @@
+# The SNAP node's UART0 is wired to ttyS2
+SUBSYSTEM=="tty", KERNEL=="ttyS2", SYMLINK+="snap0"
+
+# The SNAP node's UART1 is wired to ttyS1
+SUBSYSTEM=="tty", KERNEL=="ttyS1", SYMLINK+="snap1"
