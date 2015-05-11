@@ -10,7 +10,7 @@ SRC_URI = "file://98-synapse-hw.rules \
            file://98-synapse-snap.rules"
 S = "${WORKDIR}"
 
-RDEPENDS="udev"
+RDEPENDS_${PN}="udev"
 
 do_configure() {
 	:
