@@ -10,7 +10,7 @@ git clone git://git.yoctoproject.org/poky ${E10_SRC}
 git clone git://git.openembedded.org/meta-openembedded ${E10_SRC}/meta-openembedded
 git clone git://github.com/meta-qt5/meta-qt5.git ${E10_SRC}/meta-qt5
 git clone git://github.com/linux4sam/meta-atmel ${E10_SRC}/meta-atmel
-git clone git@git.synapse-wireless.com:octo/meta-synapse.git ${E10_SRC}/meta-synapse
+git clone git://github.com/synapse-wireless/meta-synapse ${E10_SRC}/meta-synapse
 cd ${E10_SRC} && git checkout -b my_branch origin/dizzy-12.0.1
 cd ${E10_SRC}/meta-openembedded && git checkout -b my_branch origin/dizzy
 cd ${E10_SRC}/meta-qt5 && git checkout -b my_branch origin/master
