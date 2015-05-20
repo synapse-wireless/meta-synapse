@@ -9,7 +9,7 @@ KCONFIG_MODE="--alldefconfig"
 inherit kernel
 require recipes-kernel/linux/linux-yocto.inc
 
-PR = "r1"
+PR = "r2"
 PV = "${LINUX_VERSION}+git${SRCPV}"
 
 SRCREV = "35158dd80a94df2b71484b9ffa6e642378209156"
