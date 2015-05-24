@@ -198,13 +198,13 @@ diff -Naru a/arch/arm/mach-at91/board-connect-e10.c b/arch/arm/mach-at91/board-c
 + * LEDs
 + */
 +static struct gpio_led ek_leds[] = {
-+	{	/* "bottom" led, green, userled1 to be defined */
-+		.name			= "redled",
++	{	/* only LED B is controlled by Linux */
++		.name			= "ledB:red",
 +		.gpio			= AT91_PIN_PB13,
 +		.default_trigger	= "none",
 +	},
-+	{	/* "power" led, yellow */
-+		.name			= "greenled",
++	{
++		.name			= "ledB:green",
 +		.gpio			= AT91_PIN_PB12,
 +		.default_trigger	= "none",
 +	}
