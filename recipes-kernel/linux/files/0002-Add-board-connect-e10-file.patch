@@ -219,7 +219,7 @@ diff -Naru a/arch/arm/mach-at91/board-connect-e10.c b/arch/arm/mach-at91/board-c
 +	{
 +		.gpio		= AT91_PIN_PB10,
 +		.code		= BTN_3,
-+		.desc		= "Button 3",
++		.desc		= "mode",
 +		.active_low	= 1,
 +		.wakeup		= 1,
 +	},
