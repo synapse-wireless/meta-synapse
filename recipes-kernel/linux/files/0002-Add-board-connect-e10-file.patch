@@ -1,10 +1,11 @@
 diff -Naru a/arch/arm/mach-at91/board-connect-e10.c b/arch/arm/mach-at91/board-connect-e10.c
 --- a/arch/arm/mach-at91/board-connect-e10.c	1969-12-31 18:00:00.000000000 -0600
 +++ b/arch/arm/mach-at91/board-connect-e10.c	2015-03-04 12:23:54.000000000 -0600
-@@ -0,0 +1,287 @@
+@@ -0,0 +1,288 @@
 +/*
 + *  Copyright (C) 2005 SAN People
 + *  Copyright (C) 2010 calao-systems
++ *  Copyright (C) 2015 Synapse Wireless, Inc.
 + *
 + * This program is free software; you can redistribute it and/or modify
 + * it under the terms of the GNU General Public License as published by
