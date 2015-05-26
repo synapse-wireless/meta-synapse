@@ -1,7 +1,7 @@
 diff -Naru a/arch/arm/mach-at91/board-connect-e10.c b/arch/arm/mach-at91/board-connect-e10.c
 --- a/arch/arm/mach-at91/board-connect-e10.c	1969-12-31 18:00:00.000000000 -0600
 +++ b/arch/arm/mach-at91/board-connect-e10.c	2015-03-04 12:23:54.000000000 -0600
-@@ -0,0 +1,289 @@
+@@ -0,0 +1,271 @@
 +/*
 + *  Copyright (C) 2005 SAN People
 + *  Copyright (C) 2010 calao-systems
@@ -76,22 +76,6 @@ diff -Naru a/arch/arm/mach-at91/board-connect-e10.c b/arch/arm/mach-at91/board-c
 +	.vbus_pin	= AT91_PIN_PC5,
 +	.pullup_pin	= -EINVAL,		/* pull-up driven by UDC */
 +};
-+
-+
-+/*
-+ * SPI devices.
-+ */
-+static struct spi_board_info ek_spi_devices[] = {
-+#if !IS_ENABLED(CONFIG_MMC_ATMELMCI)
-+	{	/* DataFlash chip */
-+		.modalias	= "mtd_dataflash",
-+		.chip_select	= 1,
-+		.max_speed_hz	= 15 * 1000 * 1000,
-+		.bus_num	= 0,
-+	},
-+#endif
-+};
-+
 +
 +/*
 + * MACB Ethernet device
@@ -265,8 +249,6 @@ diff -Naru a/arch/arm/mach-at91/board-connect-e10.c b/arch/arm/mach-at91/board-c
 +	at91_add_device_usbh(&ek_usbh_data);
 +	/* USB Device */
 +	at91_add_device_udc(&ek_udc_data);
-+	/* SPI */
-+	at91_add_device_spi(ek_spi_devices, ARRAY_SIZE(ek_spi_devices));
 +	/* NAND */
 +	ek_add_device_nand();
 +	/* Ethernet */
