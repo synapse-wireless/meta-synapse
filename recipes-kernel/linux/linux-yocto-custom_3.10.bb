@@ -9,14 +9,13 @@ KCONFIG_MODE="--alldefconfig"
 inherit kernel
 require recipes-kernel/linux/linux-yocto.inc
 
-PR = "r2"
+PR = "r3"
 PV = "${LINUX_VERSION}+git${SRCPV}"
 
-SRCREV = "35158dd80a94df2b71484b9ffa6e642378209156"
-SRCREV_sama5d4-xplained = "46f4253693b0ee8d25214e7ca0dde52e788ffe95"
+SRCREV = "7ff2ffae8d785da55f8e60bbc1cb9d378b4f4ae9"
 
-KBRANCH = "linux-3.10-at91"
-SRC_URI = "git://github.com/linux4sam/linux-at91.git;protocol=git;branch=${KBRANCH};nocheckout=1"
+KBRANCH = "linux-3.10-at91-e10"
+SRC_URI = "git://github.com/cardoe/linux-at91.git;protocol=git;branch=${KBRANCH};nocheckout=1"
 SRC_URI += "file://defconfig"
 
 python __anonymous () {
@@ -50,10 +49,6 @@ KERNEL_IMAGETYPE = "uImage"
 PREMIRRORS = ""
 MIRRORS = ""
 
-SRC_URI += "file://0001-Add-support-for-Connect-E10-to-Kconfig.patch"
-SRC_URI += "file://0002-Add-board-connect-e10-file.patch"
-SRC_URI += "file://0003-Add-board-connect-e10-to-Makefile.patch"
-SRC_URI += "file://0004-Add-board-connect-e10-to-mach-types.patch"
 SRC_URI += "file://tun_kmodule.cfg"
 
 # We use the AT91SAM9G20 so add that to the device trees built in
