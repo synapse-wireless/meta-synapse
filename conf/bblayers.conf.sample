@@ -16,6 +16,7 @@ BBLAYERS ?= " \
   ##OEROOT##/meta-openembedded/meta-networking \
   ##OEROOT##/meta-openembedded/meta-python \
   ##OEROOT##/meta-openembedded/meta-ruby \
+  ##OEROOT##/meta-cloud-services/meta-openstack \
   "
 BBLAYERS_NON_REMOVABLE ?= " \
   ##OEROOT##/meta \
