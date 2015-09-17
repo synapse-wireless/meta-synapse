@@ -12,10 +12,10 @@ require recipes-kernel/linux/linux-yocto.inc
 PR = "r3"
 PV = "${LINUX_VERSION}+git${SRCPV}"
 
-SRCREV = "7ff2ffae8d785da55f8e60bbc1cb9d378b4f4ae9"
+SRCREV = "d3038f20f43a21f221c6bde62ab0e312749603a8"
 
 KBRANCH = "linux-3.10-at91-e10"
-SRC_URI = "git://github.com/cardoe/linux-at91.git;protocol=git;branch=${KBRANCH};nocheckout=1"
+SRC_URI = "git://github.com/synapse-wireless/linux-at91.git;protocol=git;branch=${KBRANCH};nocheckout=1"
 SRC_URI += "file://defconfig"
 
 python __anonymous () {
