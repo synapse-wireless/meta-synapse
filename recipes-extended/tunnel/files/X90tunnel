@@ -1,0 +1,32 @@
+#!/bin/sh
+#
+# Start the ssh tunnel....
+
+start() {
+        echo "Starting ssh tunnel"
+        /etc/init.d/tunnel.sh &
+}
+stop() {
+        echo "*** tunnel must be shut down manually by killing tunnel.sh and ssh."
+}
+restart() {
+        stop
+        start
+}
+
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart|reload)
+        restart
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart}"
+        exit 1
+esac
+
+exit $?
