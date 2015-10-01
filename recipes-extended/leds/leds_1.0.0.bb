@@ -5,7 +5,8 @@ SECTION="base"
 
 # Set what files will be copied into this package:
 SRC_URI = "file://redled \
-file://greenled"
+file://greenled \
+file://license.txt"
 
 do_configure() {
 }
