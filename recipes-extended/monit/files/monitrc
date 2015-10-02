@@ -1,0 +1,10 @@
+# This is a very small template monitrc file - it shows how to ensure
+# SnapConnect is always restarted.  For more on monit, see the monit
+# manual 
+
+#check process snapconnect with pidfile /var/run/snapconnect.pid
+#  group snap
+#  start program = "/etc/init.d/S999snap start"
+#  stop program = "/etc/init.d/S999snap stop"
+#  if 5 restarts within 5 cycles then timeout
+
