@@ -1,0 +1,33 @@
+#!/bin/sh
+
+start() {
+        echo "Setting up the button GPIO..."
+        echo 42 > /sys/class/gpio/export
+}
+
+stop() {
+        echo 42 > /sys/class/gpio/unexport
+}
+
+restart() {
+        stop
+        start
+}
+
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart|reload)
+        restart
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart}"
+        exit 1
+esac
+
+exit $?
+
