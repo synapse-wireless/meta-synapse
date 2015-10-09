@@ -1,0 +1,8 @@
+if [[ ! -d /sys/class/gpio/gpio42/ ]] ; then
+    echo "Error:  The button sysfs directory doesn't exist!"
+    exit 0
+fi
+
+value=`cat /sys/class/gpio/gpio42/value`
+echo $value
+return $value
