@@ -4,6 +4,7 @@ IMAGE_INSTALL = "packagegroup-core-boot ${ROOTFS_PKGMANAGE_BOOTSTRAP}"
 IMAGE_INSTALL += "${CORE_IMAGE_EXTRA_INSTALL}"
 IMAGE_INSTALL += "mtd-utils mtd-utils-ubifs python openssh ntp"
 IMAGE_INSTALL += "u-boot-fw-utils sudo synapse-udev"
+IMAGE_INSTALL += "tar"
 
 IMAGE_LINGUAS = " "
 
