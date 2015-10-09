@@ -1,8 +1,3 @@
-
-#
-# Patch managed by http://www.mn-logistik.de/unsupported/pxa250/patcher
-#
-
 --- me060909/src/zaurus.gmk~zaurus_make	2004-03-27 10:02:09.000000000 -0700
 +++ me060909/src/zaurus.gmk	2004-03-29 17:23:12.000000000 -0700
 @@ -67,7 +67,7 @@
@@ -14,13 +9,13 @@
  else
  CONSOLE_LIBS  = -ltermcap
  endif
-@@ -163,7 +163,7 @@
+@@ -163,8 +163,7 @@
  
  mec:	$(OBJ_C)
  	$(RM) $@
 -	$(LD) $(LDFLAGS) $(LDOPTIMISE) -o $@ $(OBJ_C) $(CONSOLE_LIBS) $(LIBS)
+-	$(STRIP) $@
 +	$(CC) $(LDFLAGS) $(LDOPTIMISE) -o $@ $(OBJ_C) $(CONSOLE_LIBS) $(LIBS)
- 	$(STRIP) $@
  
  mew:	$(OBJ_W)
- 
+ 	$(RM) $@
