@@ -5,7 +5,7 @@ SECTION="base"
 
 # Set what files will be copied into this package:
 SRC_URI = "file://button \
-file://S15button_gpio \
+file://button_gpio \
 file://license.txt"
 
 do_configure() {
@@ -17,7 +17,7 @@ do_install() {
     install -d ${D}/etc/rc5.d/
 
     install -m 0755 ${WORKDIR}/button ${D}/usr/bin/
-    install -m 0755 ${WORKDIR}/button_gpio ${DIR}/etc/init.d/
+    install -m 0755 ${WORKDIR}/button_gpio ${D}/etc/init.d/
 
     cd ${D}/usr/bin/
     ln -s button gpio9260
