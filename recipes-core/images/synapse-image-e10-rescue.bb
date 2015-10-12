@@ -16,7 +16,7 @@ USE_DEVFS = "0"
 # only build the filesystem necessary
 IMAGE_FSTYPES = "${INITRAMFS_FSTYPES}"
 
-IMAGE_INSTALL += "u-boot-fw-utils gnupg mtd-utils mtd-utils-ubifs"
+IMAGE_INSTALL += "u-boot-fw-utils gnupg mtd-utils mtd-utils-ubifs tar"
 IMAGE_INSTALL += "synapse-recovery"
 
 # allows root to login with no password
