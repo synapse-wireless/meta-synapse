@@ -26,7 +26,7 @@ while getopts m:t:p: name; do
 		p)
 			TESTPASSES=${OPTARG} ;;
 		?)
-			printf "Usage: %s: [-m /dev/mtdX] [-t recovery.tar.xz] [-p NUM]" $0
+			printf "Usage: %s: [-m /dev/mtdX] [-t recovery.tgz] [-p NUM]" $0
 			exit 2
 			;;
 	esac
@@ -38,13 +38,13 @@ REBOOT=no
 
 # Extract recovery image
 if [ ! -z ${RECOVERY_TAR} ]; then
-	tar Jxf ${RECOVERY_TAR} -C /run/ \
+	tar zxf ${RECOVERY_TAR} -C /run/ \
 		|| die "Failed to extract kernel & rootfs from ${RECOVERY_TAR}"
 else
 	# This can fail because we don't know how big the file is and as a result
 	# we will get random bytes of the NAND at the end which will be run
 	# through xz -d first which can cause tar to lose its mind.
-	nanddump ${RECOVERY_MTD} 2>/dev/null | tar Jvxf - -C /run/ 2>/dev/null
+	nanddump ${RECOVERY_MTD} 2>/dev/null | tar zvxf - -C /run/ 2>/dev/null
 	[ -e /run/md5sums ] || die "Failed to extract rootfs & kernel from NAND \
 		or no recovery data present"
 fi
