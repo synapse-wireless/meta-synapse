@@ -18,3 +18,14 @@ do_install() {
     install -m 0755 ${WORKDIR}/att ${D}/etc/ppp/peers
     install -m 0755 ${WORKDIR}/att_chat ${D}/etc/ppp/peers/
 }
+
+pkg_postinst_${PN} () {
+#!/bin/ash 
+
+if [ ! -c /dev/ppp ] ; then
+    mknod /dev/ppp c 108 0
+    chown root:dialout /dev/ppp
+    chmod 664 /dev/ppp
+fi
+
+}
