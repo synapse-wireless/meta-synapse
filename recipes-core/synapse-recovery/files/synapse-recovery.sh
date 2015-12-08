@@ -111,7 +111,7 @@ fw_setenv bootcmd ${UBOOT_BOOTCMD} || die "Failed to set u-boot bootcmd"
 
 fw_printenv
 
-# Reboot
+Reboot
 if [ "x${REBOOT}" == "xyes" ]; then
 	# if we used the RECOVERY_MTD then we need to clear it out
 	# so that the next time we reboot we don't flash ourselves again
