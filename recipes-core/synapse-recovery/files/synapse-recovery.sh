@@ -99,10 +99,17 @@ if [ -e /run/${UBOOT_IMG} ]; then
 
     REBOOT=yes
 fi
-
+# NOTE: All calls to fw_setenv are done TWICE.
+#            This is because the UBOOT NAND Enviornment Store has two banks
+#            Doing each call twice ensures both banks contain the same information
 # Set u-boot params to boot
 fw_setenv bootargs ${UBOOT_BOOTARGS} || die "Failed to set u-boot bootargs"
+fw_setenv bootargs ${UBOOT_BOOTARGS} || die "Failed to set u-boot bootargs"
+
 fw_setenv bootcmd ${UBOOT_BOOTCMD} || die "Failed to set u-boot bootcmd"
+fw_setenv bootcmd ${UBOOT_BOOTCMD} || die "Failed to set u-boot bootcmd"
+
+fw_printenv
 
 # Reboot
 if [ "x${REBOOT}" == "xyes" ]; then
