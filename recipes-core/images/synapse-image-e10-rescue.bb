@@ -20,7 +20,7 @@ IMAGE_INSTALL += "u-boot-fw-utils gnupg mtd-utils mtd-utils-ubifs tar"
 IMAGE_INSTALL += "synapse-recovery"
 
 # allows root to login with no password
-IMAGE_FEATURES_append = "ssh-server-dropbear"
+IMAGE_FEATURES_append = "ssh-server-openssh"
 
 # Don't need syslog filling up our RAM (since the rootfs is a RAM disk)
 BAD_RECOMMENDATIONS += "busybox-syslog"

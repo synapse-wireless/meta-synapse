@@ -9,6 +9,7 @@ EXTRA_USERS_PARAMS_append = "\
 "
 
 IMAGE_INSTALL += "button leds tunnel run-usb run-net"
+IMAGE_FEATURES_append += "ssh-server-openssh"
 
 # The following forces the 'snap' user to reset their password on first login
 force_passwd_reset() {
