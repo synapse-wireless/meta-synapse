@@ -8,7 +8,7 @@ EXTRA_USERS_PARAMS_append = "\
    usermod -P synapse snap; \
 "
 
-IMAGE_INSTALL += "button leds tunnel run-usb run-net"
+IMAGE_INSTALL += "button leds tunnel run-usb run-net snap-enable"
 IMAGE_FEATURES_append += "ssh-server-openssh"
 
 # The following forces the 'snap' user to reset their password on first login
