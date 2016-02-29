@@ -16,6 +16,6 @@ do_install() {
     install -m 0755 ${WORKDIR}/snap-enable.sh ${D}/etc/init.d/
 
     cd ${D}/etc/rcS.d/
-    ln -s ../init.d/snap-enable ./S95snap-enable
+    ln -s ../init.d/snap-enable.sh ./S95snap-enable
     cd -
 }
