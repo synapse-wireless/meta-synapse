@@ -20,7 +20,7 @@ UBOOT_BOOTCMD="nboot 0x21000000 0 c0000"
 UBOOT_BOOTARGS="console=ttyS0,115200 mtdparts=atmel_nand:128K(bootstrap)ro,384K(uboot)ro,256K(environment),3328K(uImage),9216K(rescue)ro,211M(rootfs),-(recovery) ubi.mtd=rootfs root=ubi0:rootfs rw rootfstype=ubifs"
 
 # For snap-lighting
-BOOTSRVURL="http://boot-dev.snap-lighting.com"
+BOOTSRVURL="http://boot.snap-lighting.com"
 MACADDR=`cat /sys/class/net/eth0/address | cut -d : -f 4,5,6 | cut -c 1-2,4-5,7-8`
 LOGPATH="log/$MACADDR"
 CLEANEDLOG="/tmp/clean.log"
